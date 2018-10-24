@@ -6,8 +6,7 @@ import random
 ############################################################
 
 class Block(Rectangle):
-    ''' Block class:
-        Implement a block for a tetris piece
+    ''' Block class to implement a block for a tetris piece
         Attributes: x - type: int
                     y - type: int
         specify the position on the tetris board
@@ -80,8 +79,7 @@ class Shape(object):
     def draw_shape(self, win):
         ''' Parameter: win - type: CanvasFrame
 
-            Draws the shape:
-            i.e. draws each block
+            Draws each block
         ''' 
         for block in self.blocks:
             block.draw(win)
@@ -261,7 +259,7 @@ class Board(object):
         self.canvas.setBackground('white')
 
         # create an empty dictionary
-        # currently we have no shapes on the board
+        # currently there are no shapes on the board
         self.grid = {}
      
     def draw_shape(self, shape):
@@ -270,8 +268,6 @@ class Board(object):
 
             draws the shape on the board if there is space for it
             and returns True, otherwise it returns False
-            Hint: you want to use an existing method of the shape
-            to check if the shape can be drawn at its current location
         '''
         if shape.check_if_can_move(self, 0,0) == True:
             shape.draw_shape(self.canvas)
@@ -285,9 +281,6 @@ class Board(object):
             Return value: type: bool
 
             checks if it is ok to move to square x,y
-            you need to check:
-            1. if the position is outside of the board boundaries
-            2. if there is already a block at that postion
             returns True if it is ok, otherwise returns False
 
         '''
@@ -300,12 +293,8 @@ class Board(object):
     def add_shape(self, shape):
         ''' Parameter: shape - type:Shape
             
-            add a shape to the grid, i.e.
             add each block to the grid using its
             (x, y) coordinates as a dictionary key
-
-            Hint: use the get_blocks method on Shape to
-            get the list of blocks
         '''
         
         blocks = shape.get_blocks()
@@ -344,7 +333,6 @@ class Board(object):
 
             move all the blocks in each row starting at y_start and up
             down 1 square
-            Note: make sure you update the grid as well.
         '''
         for y in range(y_start, 0, -1):
             for x in range(self.width):
@@ -366,7 +354,6 @@ class Board(object):
 
     def game_over(self):
         ''' display "Game Over !!!" message in the center of the board
-            HINT: use the Text class from the graphics library
         '''
         gameoverbox = Rectangle(Point(45,225), Point(255, 325))
         gameoverbox.setFill('pale violet red')
@@ -413,8 +400,7 @@ class WTPTetris(object):
         self.current_shape = self.create_new_shape()
         self.board.draw_shape(self.current_shape)
 
-        # 1. draw the current_shape on the board (take a look at the
-        # methods available in the Board class)
+        # 1. draw the current_shape on the board 
         # 2. animate the shape
         
         self.animate_shape()
@@ -449,9 +435,10 @@ class WTPTetris(object):
         ''' Parameters: direction - type: string
             Return value: type: bool
 
-            move the current shape in the direction specified by the parameter:
+            moves the current shape in the direction specified by the parameter:
             First check if the shape can move. If it can, move it and return True
-            Otherwise if the direction we tried to move was 'Down',
+            
+            If the direction we tried to move was 'Down',
             1. add the current shape to the board
             2. remove the completed rows if any 
             3. create a new random shape and set current_shape attribute
@@ -488,11 +475,8 @@ class WTPTetris(object):
     
     def key_pressed(self, event):
         ''' this function is called when a key is pressed on the keyboard
-            it currently just prints the value of the key
-
-            Modify the function so that if the user presses the arrow keys
-            'Left', 'Right' or 'Down', the current_shape will move in
-            the appropriate direction
+            If the user presses the arrow keys 'Left', 'Right' or 'Down', 
+            the current_shape will move in the appropriate direction
 
             if the user presses the space bar 'space', the shape will move
             down until it can no longer move and is added to the board
